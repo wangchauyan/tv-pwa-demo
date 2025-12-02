@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TV PWA Demo</title>
+    <link rel="manifest" href="manifest.json">
+    <style>
+        body {
+            background-color: #222;
+            color: white;
+            font-family: sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden; /* 防止頁面滾動，專注於元件移動 */
+        }
+
+        h1 { margin-bottom: 30px; }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(2, 200px); /* 2x2 佈局 */
+            gap: 20px;
+        }
+
+        /* 可互動的卡片 */
+        .card {
+            background-color: #444;
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            font-size: 24px;
+            cursor: pointer;
+            transition: transform 0.2s, background-color 0.2s, box-shadow 0.2s;
+            
+            /* 關鍵：移除預設難看的藍色外框 */
+            outline: none; 
+        }
+
+        /* -------------------------------------------
+           TV 開發最重要的一段 CSS：焦點狀態
+           當遙控器選到這個元素時，必須發生明顯變化
+        ------------------------------------------- */
+        .card:focus {
+            background-color: #0078D7; /* 變色 */
+            transform: scale(1.1);     /* 放大 (電視常見互動) */
+            box-shadow: 0 0 20px rgba(0, 120, 215, 0.8); /* 發光 */
+            z-index: 10;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Android TV PWA Demo</h1>
+
+    <div class="grid-container">
+        <div class="card" tabindex="0" id="item-1">電影</div>
+        <div class="card" tabindex="0" id="item-2">影集</div>
+        <div class="card" tabindex="0" id="item-3">設定</div>
+        <div class="card" tabindex="0" id="item-4">登出</div>
+    </div>
+
+    <script>
+        // 註冊 Service Worker (PWA 必要條件)
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js');
+        }
+
+        // ----------------------------------------------------
+        // 簡易的 D-Pad 導航邏輯
+        // ----------------------------------------------------
+        
+        // 取得所有可聚焦的元素
+        const items = document.querySelectorAll('.card');
+        
+        // 設定一開始聚焦在第一個元素
+        if (items.length > 0) {
+            items[0].focus();
+        }
+
+        // 監聽鍵盤事件 (遙控器按鍵本質上就是 Keyboard Event)
+        document.addEventListener('keydown', (e) => {
+            const current = document.activeElement;
+            const index = Array.from(items).indexOf(current);
+            
+            // 如果焦點不在我們的卡片上，重置回第一個
+            if (index === -1) return;
+
+            let nextIndex = null;
+
+            switch(e.key) {
+                case 'ArrowRight': // 遙控器右鍵
+                    if (index % 2 === 0) nextIndex = index + 1; // 簡單的 2欄邏輯
+                    break;
+                case 'ArrowLeft':  // 遙控器左鍵
+                    if (index % 2 !== 0) nextIndex = index - 1;
+                    break;
+                case 'ArrowDown':  // 遙控器下鍵
+                    if (index + 2 < items.length) nextIndex = index + 2;
+                    break;
+                case 'ArrowUp':    // 遙控器上鍵
+                    if (index - 2 >= 0) nextIndex = index - 2;
+                    break;
+                case 'Enter':      // 遙控器確認鍵 (OK)
+                    alert(`你點擊了: ${current.innerText}`);
+                    break;
+            }
+
+            if (nextIndex !== null) {
+                e.preventDefault(); // 防止瀏覽器預設滾動
+                items[nextIndex].focus(); // 將焦點移到下一個元素
+            }
+        });
+    </script>
+</body>
+</html>
