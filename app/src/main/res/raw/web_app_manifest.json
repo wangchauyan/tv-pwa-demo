@@ -1,0 +1,1 @@
+{"name":"TV PWA Demo","short_name":"TVDemo","start_url":"/tv-pwa-demo/","display":"standalone","background_color":"#222222","theme_color":"#222222","orientation":"landscape","icons":[{"src":"https://via.placeholder.com/192.png?text=Icon","sizes":"192x192","type":"image/png"},{"src":"https://via.placeholder.com/512.png?text=Icon","sizes":"512x512","type":"image/png"}]}

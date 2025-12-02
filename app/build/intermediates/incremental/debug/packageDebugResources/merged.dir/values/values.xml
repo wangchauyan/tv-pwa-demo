@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <bool name="enableNotification">true</bool>
+    <bool name="enableSiteSettingsShortcut">true</bool>
+    <color name="backgroundColor">#222222</color>
+    <color name="colorPrimary">#222222</color>
+    <color name="colorPrimaryDark">#000000</color>
+    <color name="navigationColor">#000000</color>
+    <color name="navigationColorDark">#000000</color>
+    <color name="navigationDividerColor">#000000</color>
+    <color name="navigationDividerColorDark">#000000</color>
+    <color name="shortcut_background">#F5F5F5</color>
+    <integer name="splashScreenFadeOutDuration">300</integer>
+    <string name="appName" translatable="false">TV PWA Demo</string>
+    <string name="assetStatements">
+  [{
+    \"relation\": [\"delegate_permission/common.handle_all_urls\"],
+    \"target\": {
+      \"namespace\": \"android_app\",
+      \"package_name\": \"io.github.wangchauyan.twa\",
+      \"sha256_cert_fingerprints\": [
+        \"E5:5A:FC:91:8D:22:B9:D0:95:74:F4:EC:87:0B:DD:2E:99:ED:12:F7:B5:99:06:67:E3:C0:E9:D4:28:30:41:5E\"
+      ]
+    }
+  }]
+  </string>
+    <string name="fallbackType" translatable="false">customtabs</string>
+    <string name="fullScopeUrl" translatable="false">https://wangchauyan.github.io/tv-pwa-demo/</string>
+    <string name="generatorApp" translatable="false">bubblewrap-cli</string>
+    <string name="hostName" translatable="false">wangchauyan.github.io</string>
+    <string name="launchUrl" translatable="false">https://wangchauyan.github.io/tv-pwa-demo/</string>
+    <string name="launcherName" translatable="false">TVDemo</string>
+    <string name="orientation" translatable="false">landscape</string>
+    <string name="providerAuthority" translatable="false">io.github.wangchauyan.twa.fileprovider</string>
+    <string name="webManifestUrl" translatable="false">https://wangchauyan.github.io/tv-pwa-demo/manifest.json</string>
+</resources>
